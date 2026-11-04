@@ -1,0 +1,44 @@
+Subject: Bi-weekly progress report — {{ title }} ({{ start }}–{{ end }})
+{% set names = {"architect": "Research plan & Three Nails", "chapter1": "Chapter 1 — Introduction & problem", "literature": "Chapter 2 — Literature review", "theory": "Chapter 2 — Theoretical framework", "practical": "Chapter 3 — Implementation & experiments", "conclusion": "General conclusion", "references": "References", "final": "Final compliance check", "done": "Completed"} %}
+Dear {{ project.supervisor or "supervisor" }},
+
+please find below my progress report for the period {{ start }}–{{ end }}.
+
+Work title: {{ title }}
+Research aim: {{ goal or "—" }}
+
+1. Completed and approved in this period
+{% for s in approved %}
+   • {{ names.get(s, s) }}
+{% else %}
+   • No stage was approved in this period.
+{% endfor %}
+
+2. Work in progress
+   • Current stage: {{ names.get(current_stage, current_stage) }}
+{% for s in drafts if s not in approved %}
+   • Draft prepared: {{ names.get(s, s) }}
+{% endfor %}
+   • Revisions requested: {{ n_revisions }}; manual edits saved: {{ n_edits }}
+   • Verified references: {{ refs_verified }} of {{ refs_total }}
+   • Experimental data uploaded in this period: {{ "yes" if experiments_uploaded else "no" }}
+
+3. Open issues (RNU compliance check)
+{% for f in open_findings %}
+   • {{ f }}
+{% else %}
+   • No blocking issues.
+{% endfor %}
+
+4. Defended thesis statements
+{% for n in nails %}
+   {{ loop.index }}. {{ n }}
+{% endfor %}
+
+5. Authorship transparency
+   AI-assisted drafts were reviewed and edited by me{% if authorship %}: {% for s, a in authorship.items() %}{{ names.get(s, s) }} — {{ a.changed_pct }}% changed{{ "; " if not loop.last }}{% endfor %}{% endif %}.
+
+Kind regards,
+{{ project.student_name or "Student" }}{% if project.student_group %}, {{ project.student_group }}{% endif %}
+
+{{ project.student_email }}

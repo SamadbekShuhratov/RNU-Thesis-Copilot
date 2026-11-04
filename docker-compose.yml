@@ -1,0 +1,21 @@
+# docker compose up -d        → portal on http://localhost:8765, Ollama inside the stack
+# docker compose exec ollama ollama pull qwen2.5:14b-instruct
+services:
+  ollama:
+    image: ollama/ollama:latest
+    volumes: [ollama:/root/.ollama]
+    ports: ["11434:11434"]
+    # GPU (NVIDIA): uncomment
+    # deploy: { resources: { reservations: { devices: [ { capabilities: [gpu] } ] } } }
+  copilot:
+    build: .
+    depends_on: [ollama]
+    environment:
+      RNU_LLM_PROVIDER: ollama
+      RNU_LLM_BASE_URL: http://ollama:11434
+      RNU_LLM_MODEL: qwen2.5:14b-instruct
+    ports: ["127.0.0.1:8765:8765"]
+    volumes: [copilot-data:/data]
+volumes:
+  ollama:
+  copilot-data:

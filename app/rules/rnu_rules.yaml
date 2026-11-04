@@ -1,0 +1,136 @@
+# RNU institutional rules used by Employee 1 (Project Manager / Gatekeeper).
+# Edit this file to match the official RNU "Common Mistakes Checklist" and the
+# "RNU Thesis Example" document — the validators read everything from here.
+version: 1
+
+# ── The "Three Nails" (defended thesis statements) ─────────────────────────
+# Nail i must start with prefix i. English prefixes are always accepted;
+# localized prefixes are suggestions — confirm the official wording with your
+# supervisor and edit them here.
+nail_prefixes:
+  en: ["Has been OFFERED", "Has been MODIFIED", "Has been SUGGESTED"]
+  lv: ["Ir PIEDĀVĀTS", "Ir MODIFICĒTS", "Ir IETEIKTS"]
+  ru: ["ПРЕДЛОЖЕН", "МОДИФИЦИРОВАН", "РЕКОМЕНДОВАН"]
+  uk: ["ЗАПРОПОНОВАНО", "МОДИФІКОВАНО", "РЕКОМЕНДОВАНО"]
+  uz: ["TAKLIF ETILGAN", "MODIFIKATSIYA QILINGAN", "TAVSIYA ETILGAN"]
+  de: ["Es wurde ANGEBOTEN", "Es wurde MODIFIZIERT", "Es wurde VORGESCHLAGEN"]
+  lt: ["PASIŪLYTA", "MODIFIKUOTA", "REKOMENDUOTA"]
+  et: ["On PAKUTUD", "On MODIFITSEERITUD", "On SOOVITATUD"]
+  pl: ["ZAPROPONOWANO", "ZMODYFIKOWANO", "ZASUGEROWANO"]
+  kk: ["ҰСЫНЫЛДЫ", "ӨЗГЕРТІЛДІ", "ҰСЫНЫС ЖАСАЛДЫ"]
+  tr: ["ÖNERİLMİŞTİR", "DEĞİŞTİRİLMİŞTİR", "TAVSİYE EDİLMİŞTİR"]
+
+# ── Sentence-level constraints ─────────────────────────────────────────────
+goal:
+  sentences: 1
+  min_words: 12
+  max_words: 50
+topicality:
+  min_sentences: 3
+  max_sentences: 4
+problem_formulation:
+  min_sentences: 3
+  max_sentences: 4
+chapter_conclusion:
+  min_sentences: 2
+general_conclusion:
+  min_words: 250
+  max_words: 650
+titles:
+  min: 5
+  max: 10
+nail_term_overlap: 0.5      # share of key nail terms that must reappear in the conclusion
+
+# Patterns that make a research aim "vague" (regex, case-insensitive).
+vague_goal_patterns:
+  - "^\\s*(to\\s+)?(analy[sz]e|study|research|investigate|examine|review|consider)\\s+(the\\s+)?information\\s+systems?\\.?\\s*$"
+  - "^\\s*(to\\s+)?(analy[sz]e|study|research|investigate|look at)\\s+\\w+(\\s+\\w+)?\\.?\\s*$"
+  - "\\b(etc|and so on|various aspects|some aspects)\\b"
+
+# Words signalling an opinion-based "lecture" instead of a fact-based problem.
+opinion_markers:
+  en: ["i think", "i believe", "we believe", "in my opinion", "obviously", "everyone knows", "it is clear that", "undoubtedly", "of course"]
+  ru: ["я думаю", "я считаю", "по моему мнению", "очевидно", "всем известно", "несомненно", "конечно"]
+  lv: ["es domāju", "manuprāt", "acīmredzami", "visi zina", "protams"]
+  uz: ["menimcha", "men o'ylayman", "aniqki", "hammaga ma'lum", "shubhasiz", "albatta"]
+  uk: ["я думаю", "на мою думку", "очевидно", "всім відомо", "безумовно"]
+  de: ["ich denke", "meiner meinung nach", "offensichtlich", "jeder weiß", "natürlich"]
+
+# Action verbs expected at the core of a SMART aim (stems, lowercase).
+smart_action_verbs:
+  en: ["develop", "design", "implement", "build", "create", "propose", "evaluate", "improve", "reduce", "increase", "optimi", "automat", "deploy", "integrat"]
+  ru: ["разработ", "спроектир", "внедр", "созда", "предлож", "оцени", "повыс", "сократ", "снизи", "оптимиз", "автоматиз"]
+  lv: ["izstrād", "projektē", "ieviest", "izveido", "piedāvā", "novērtē", "uzlabo", "samazin", "palielin", "optimizē", "automatizē"]
+  uz: ["ishlab chiq", "loyihala", "joriy et", "yarat", "taklif et", "bahola", "yaxshila", "kamaytir", "oshir", "optimallashtir", "avtomatlashtir"]
+  uk: ["розроб", "спроєкту", "впровад", "створ", "запропон", "оцін", "підвищ", "скорот", "оптиміз", "автоматиз"]
+  de: ["entwick", "entwerf", "implement", "erstell", "vorschlag", "bewert", "verbesser", "reduzier", "erhöh", "optimier", "automatisier"]
+
+# Placeholders the agents use when real data is missing — they always block.
+placeholder_pattern: "\\[(STAT NEEDED|SOURCE NEEDED|DATA NEEDED|TODO)[^\\]]*\\]"
+
+# ── Document types ─────────────────────────────────────────────────────────
+# pages: [min, max] target per stage; words_per_page depends on layout
+# (12 pt, 1.5 spacing ≈ 300 words; conference template ≈ 520 words).
+doc_types:
+  thesis:
+    label: "Bachelor / Master thesis"
+    words_per_page: 300
+    min_references: 20
+    stages: [architect, chapter1, literature, theory, practical, conclusion, references, final]
+    pages:
+      chapter1: [5, 20]
+      literature: [12, 30]
+      theory: [8, 20]
+      practical: [25, 35]
+      conclusion: [1, 2]
+  course_work:
+    label: "Course work"
+    words_per_page: 300
+    min_references: 10
+    stages: [architect, chapter1, literature, theory, practical, conclusion, references, final]
+    pages:
+      chapter1: [3, 8]
+      literature: [5, 12]
+      theory: [3, 8]
+      practical: [10, 20]
+      conclusion: [1, 2]
+  conference_paper:
+    label: "RNU Science Week paper (4–6 pages)"
+    words_per_page: 520
+    min_references: 8
+    total_pages: [4, 6]
+    stages: [architect, chapter1, literature, practical, conclusion, references, final]
+    pages:
+      chapter1: [0.8, 1.2]
+      literature: [0.9, 1.4]
+      practical: [1.5, 2.2]
+      conclusion: [0.4, 0.7]
+
+# ── RNU Science Week 2027 submission form ──────────────────────────────────
+science_week:
+  max_authors: 10
+  abstract_max_words: 400
+  keywords_min: 3
+  keywords_max: 8
+  pages: [4, 6]
+  max_file_mb: 10
+  technical_sections:
+    - "Engineering, Automation and Sustainable Technologies"
+    - "AI, Data Science and Intelligent Systems"
+    - "Management, Innovation and Organisational Studies"
+    - "Interdisciplinary Applications for Sustainable Development"
+  presentation_types: ["In person", "Online"]
+  template_url: "https://science-week.rnu.lv/paper-template"
+
+# ── Formatting (thesis export) — align with the RNU Thesis Example ────────
+formatting:
+  font: "Times New Roman"
+  font_size_pt: 12
+  line_spacing: 1.5
+  margins_cm: {top: 2.0, bottom: 2.0, left: 3.0, right: 1.5}
+  paper_font_size_pt: 11
+  paper_margins_cm: {top: 2.0, bottom: 2.0, left: 2.0, right: 2.0}
+  default_citation_style: "apa"     # apa | ieee
+
+# Code file extensions that count as a real implementation.
+code_extensions: [".py", ".js", ".ts", ".tsx", ".jsx", ".java", ".kt", ".swift", ".go", ".rs", ".cs", ".cpp", ".c", ".php", ".rb", ".dart", ".scala", ".r", ".sql", ".ipynb", ".vue", ".svelte"]

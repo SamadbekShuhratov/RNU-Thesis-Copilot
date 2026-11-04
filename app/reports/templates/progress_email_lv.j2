@@ -1,0 +1,44 @@
+Subject: Divu nedēļu progresa ziņojums — {{ title }} ({{ start }}–{{ end }})
+{% set names = {"architect": "Pētījuma plāns un trīs tēzes", "chapter1": "1. nodaļa — Ievads un problēma", "literature": "2. nodaļa — Literatūras apskats", "theory": "2. nodaļa — Teorētiskais ietvars", "practical": "3. nodaļa — Realizācija un eksperimenti", "conclusion": "Vispārīgie secinājumi", "references": "Izmantotā literatūra", "final": "Galīgā atbilstības pārbaude", "done": "Pabeigts"} %}
+Cienījamais(-ā) {{ project.supervisor or "darba vadītāj(-a)" }},
+
+nosūtu progresa ziņojumu par periodu {{ start }}–{{ end }}.
+
+Darba nosaukums: {{ title }}
+Pētījuma mērķis: {{ goal or "—" }}
+
+1. Šajā periodā pabeigts un apstiprināts
+{% for s in approved %}
+   • {{ names.get(s, s) }}
+{% else %}
+   • Šajā periodā neviens posms netika apstiprināts.
+{% endfor %}
+
+2. Darbs procesā
+   • Pašreizējais posms: {{ names.get(current_stage, current_stage) }}
+{% for s in drafts if s not in approved %}
+   • Sagatavots melnraksts: {{ names.get(s, s) }}
+{% endfor %}
+   • Pieprasītie labojumi: {{ n_revisions }}; saglabātie manuālie labojumi: {{ n_edits }}
+   • Pārbaudītie avoti: {{ refs_verified }} no {{ refs_total }}
+   • Augšupielādēti eksperimentu dati: {{ "jā" if experiments_uploaded else "nē" }}
+
+3. Atvērtie jautājumi (RNU atbilstības pārbaude)
+{% for f in open_findings %}
+   • {{ f }}
+{% else %}
+   • Bloķējošu problēmu nav.
+{% endfor %}
+
+4. Aizstāvamās tēzes
+{% for n in nails %}
+   {{ loop.index }}. {{ n }}
+{% endfor %}
+
+5. Autorības caurspīdīgums
+   Ar MI palīdzību sagatavotos melnrakstus esmu pārskatījis(-usi) un rediģējis(-usi){% if authorship %}: {% for s, a in authorship.items() %}{{ names.get(s, s) }} — mainīti {{ a.changed_pct }}%{{ "; " if not loop.last }}{% endfor %}{% endif %}.
+
+Ar cieņu,
+{{ project.student_name or "Students" }}{% if project.student_group %}, {{ project.student_group }}{% endif %}
+
+{{ project.student_email }}

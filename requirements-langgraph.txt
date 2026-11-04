@@ -1,0 +1,4 @@
+# Optional: run the same employee nodes on LangGraph (scripts/langgraph_demo.py)
+-r requirements.txt
+langgraph>=0.3
+langgraph-checkpoint-sqlite>=2.0

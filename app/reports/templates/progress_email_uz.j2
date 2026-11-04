@@ -1,0 +1,44 @@
+Subject: Ikki haftalik hisobot — {{ title }} ({{ start }}–{{ end }})
+{% set names = {"architect": "Tadqiqot rejasi va uchta tezis", "chapter1": "1-bob — Kirish va muammo", "literature": "2-bob — Adabiyotlar sharhi", "theory": "2-bob — Nazariy asos", "practical": "3-bob — Amaliy qism va tajribalar", "conclusion": "Umumiy xulosa", "references": "Foydalanilgan adabiyotlar", "final": "Yakuniy muvofiqlik tekshiruvi", "done": "Yakunlangan"} %}
+Hurmatli {{ project.supervisor or "ilmiy rahbar" }},
+
+{{ start }}–{{ end }} davri uchun ish holati haqida hisobotimni yuboraman.
+
+Ish mavzusi: {{ title }}
+Tadqiqot maqsadi: {{ goal or "—" }}
+
+1. Shu davrda bajarilgan va tasdiqlangan
+{% for s in approved %}
+   • {{ names.get(s, s) }}
+{% else %}
+   • Bu davrda hech bir bosqich tasdiqlanmadi.
+{% endfor %}
+
+2. Jarayondagi ishlar
+   • Joriy bosqich: {{ names.get(current_stage, current_stage) }}
+{% for s in drafts if s not in approved %}
+   • Qoralama tayyorlandi: {{ names.get(s, s) }}
+{% endfor %}
+   • So'ralgan qayta ishlashlar: {{ n_revisions }}; saqlangan qo'lda tahrirlar: {{ n_edits }}
+   • Tasdiqlangan manbalar: {{ refs_total }} tadan {{ refs_verified }} tasi
+   • Shu davrda tajriba ma'lumotlari yuklandi: {{ "ha" if experiments_uploaded else "yo'q" }}
+
+3. Ochiq masalalar (RNU muvofiqlik tekshiruvi)
+{% for f in open_findings %}
+   • {{ f }}
+{% else %}
+   • To'siq bo'luvchi muammo yo'q.
+{% endfor %}
+
+4. Himoya qilinadigan tezislar
+{% for n in nails %}
+   {{ loop.index }}. {{ n }}
+{% endfor %}
+
+5. Mualliflik shaffofligi
+   AI yordamida tayyorlangan qoralamalar men tomonimdan ko'rib chiqildi va tahrirlandi{% if authorship %}: {% for s, a in authorship.items() %}{{ names.get(s, s) }} — {{ a.changed_pct }}% o'zgartirildi{{ "; " if not loop.last }}{% endfor %}{% endif %}.
+
+Hurmat bilan,
+{{ project.student_name or "Talaba" }}{% if project.student_group %}, {{ project.student_group }}{% endif %}
+
+{{ project.student_email }}

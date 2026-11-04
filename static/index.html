@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RNU Thesis Copilot</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f5c6e'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='15' font-weight='700' fill='white' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/css/app.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="side">
+      <div class="brand"><div class="mark">R</div><div><b>Thesis Copilot</b><span>Riga Nordic University</span></div></div>
+      <nav class="nav" id="nav"></nav>
+      <div class="grow"></div>
+      <div class="lang-switch"><select id="ui-lang" aria-label="Language"></select></div>
+      <div class="llm-pill" id="llm-pill"><span class="dot"></span><span>…</span></div>
+    </aside>
+    <main class="main" id="view"></main>
+  </div>
+  <div id="modal-root"></div>
+  <div class="toasts" id="toasts"></div>
+  <script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
